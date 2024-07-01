@@ -17,7 +17,6 @@ on:
 jobs:
   publish:
     name: Publish AUR package
-    needs: [ci]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
