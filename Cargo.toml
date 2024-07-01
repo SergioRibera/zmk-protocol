@@ -1,4 +1,5 @@
 [workspace.package]
+name = "zmk-protocol"
 version = "0.0.1"
 edition = "2021"
 description = "A protocol to interact with ZMK firmware"
@@ -8,6 +9,7 @@ homepage = "https://zmk.dev"
 repository = "https://github.com/SergioRibera/zmk-protocol"
 keywords = ["protocol", "keyboard", "wireless", "hid"]
 categories = ["development-tools"]
+license-file = "LICENSE"
 
 [workspace]
 members = ["zmk-protocol-rs"]

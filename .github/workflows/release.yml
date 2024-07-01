@@ -1,0 +1,43 @@
+name: Release Version
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+  push:
+    paths-ignore:
+      - ".github/"
+      - "release.toml"
+      - "LICENS**"
+      - "README.md"
+    tags:
+      - "**"
+
+jobs:
+  publish:
+    name: Publish AUR package
+    needs: [ci]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate a Changelog
+        uses: orhun/git-cliff-action@v3
+        id: git-cliff
+        with:
+          args: -vv --latest
+        env:
+          OUTPUT: CHANGES.md
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          prerelease: ${{ contains(github.ref_name, 'a') }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: ${{ steps.git-cliff.outputs.content }}

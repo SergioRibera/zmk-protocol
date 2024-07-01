@@ -8,6 +8,7 @@ homepage.workspace = true
 repository.workspace = true
 keywords.workspace = true
 categories.workspace = true
+license-file.workspace = true
 
 [dependencies]
 prost = "0.12.6"
