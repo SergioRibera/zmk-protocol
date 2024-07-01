@@ -1,0 +1,10 @@
+[package]
+name = "zmk-protocol-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pbjson-types = "0.6.0"
+prost = "0.12.6"
+prost-types = "0.12.6"
+serde = "1.0.203"
