@@ -1,6 +1,6 @@
 [workspace.package]
 name = "zmk-protocol"
-version = "0.0.2-alpha.1"
+version = "0.0.2-alpha.2"
 edition = "2021"
 description = "A protocol to interact with ZMK firmware"
 readme = "zmk-protocol-rs/README.md"
