@@ -1,6 +1,13 @@
 [workspace.package]
 version = "0.0.1"
 edition = "2021"
+description = "A protocol to interact with ZMK firmware"
+readme = "zmk-protocol-rs/README.md"
+exclude = ["proto", "zephyr", "flake.*"]
+homepage = "https://zmk.dev"
+repository = "https://github.com/SergioRibera/zmk-protocol"
+keywords = ["protocol", "keyboard", "wireless", "hid"]
+categories = ["development-tools"]
 
 [workspace]
 members = ["zmk-protocol-rs"]
