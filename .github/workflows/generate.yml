@@ -23,6 +23,6 @@ jobs:
 
     - uses: EndBug/add-and-commit@v9
       with:
-        message: chore: update files generated from protofiles
+        message: "chore: update files generated from protofiles"
         committer_name: GitHub Actions
         committer_email: 41898282+github-actions[bot]@users.noreply.github.com
