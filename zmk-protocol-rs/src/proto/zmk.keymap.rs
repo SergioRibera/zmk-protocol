@@ -109,8 +109,8 @@ pub mod move_layer_response {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetLayerBindingRequest {
-    #[prost(int32, tag="1")]
-    pub layer: i32,
+    #[prost(uint32, tag="1")]
+    pub layer_id: u32,
     #[prost(int32, tag="2")]
     pub key_position: i32,
     #[prost(message, optional, tag="3")]
@@ -120,9 +120,9 @@ pub struct SetLayerBindingRequest {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MoveLayerRequest {
     #[prost(uint32, tag="1")]
-    pub layer: u32,
+    pub start_index: u32,
     #[prost(uint32, tag="2")]
-    pub dest: u32,
+    pub dest_index: u32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -133,9 +133,11 @@ pub struct Keymap {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Layer {
-    #[prost(string, tag="1")]
+    #[prost(uint32, tag="1")]
+    pub id: u32,
+    #[prost(string, tag="2")]
     pub name: ::prost::alloc::string::String,
-    #[prost(message, repeated, tag="2")]
+    #[prost(message, repeated, tag="3")]
     pub bindings: ::prost::alloc::vec::Vec<BehaviorBinding>,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -250,7 +252,7 @@ impl MoveLayerErrorCode {
 #[repr(i32)]
 pub enum SetActivePhysicalLayoutErrorCode {
     Generic = 0,
-    InvalidLayerIndex = 1,
+    InvalidLayoutIndex = 1,
 }
 impl SetActivePhysicalLayoutErrorCode {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -260,14 +262,14 @@ impl SetActivePhysicalLayoutErrorCode {
     pub fn as_str_name(&self) -> &'static str {
         match self {
             SetActivePhysicalLayoutErrorCode::Generic => "GENERIC",
-            SetActivePhysicalLayoutErrorCode::InvalidLayerIndex => "INVALID_LAYER_INDEX",
+            SetActivePhysicalLayoutErrorCode::InvalidLayoutIndex => "INVALID_LAYOUT_INDEX",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
     pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
         match value {
             "GENERIC" => Some(Self::Generic),
-            "INVALID_LAYER_INDEX" => Some(Self::InvalidLayerIndex),
+            "INVALID_LAYOUT_INDEX" => Some(Self::InvalidLayoutIndex),
             _ => None,
         }
     }

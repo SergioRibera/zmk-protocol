@@ -77,7 +77,7 @@ pub struct BehaviorParameterNil {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct BehaviorParameterLayerIndex {
+pub struct BehaviorParameterLayerId {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -109,7 +109,7 @@ pub mod behavior_parameter_value_description {
         #[prost(message, tag="5")]
         HidUsage(super::BehaviorParameterHidUsage),
         #[prost(message, tag="6")]
-        LayerIndex(super::BehaviorParameterLayerIndex),
+        LayerId(super::BehaviorParameterLayerId),
     }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
@@ -118,7 +118,7 @@ pub enum BehaviorBindingParameterStandardDomain {
     Nil = 0,
     HidUsage = 1,
     /// HSV_VALUE = 3;
-    LayerIndex = 2,
+    LayerId = 2,
 }
 impl BehaviorBindingParameterStandardDomain {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -129,7 +129,7 @@ impl BehaviorBindingParameterStandardDomain {
         match self {
             BehaviorBindingParameterStandardDomain::Nil => "NIL",
             BehaviorBindingParameterStandardDomain::HidUsage => "HID_USAGE",
-            BehaviorBindingParameterStandardDomain::LayerIndex => "LAYER_INDEX",
+            BehaviorBindingParameterStandardDomain::LayerId => "LAYER_ID",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -137,7 +137,7 @@ impl BehaviorBindingParameterStandardDomain {
         match value {
             "NIL" => Some(Self::Nil),
             "HID_USAGE" => Some(Self::HidUsage),
-            "LAYER_INDEX" => Some(Self::LayerIndex),
+            "LAYER_ID" => Some(Self::LayerId),
             _ => None,
         }
     }
