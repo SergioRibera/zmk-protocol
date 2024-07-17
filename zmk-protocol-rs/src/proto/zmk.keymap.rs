@@ -2,7 +2,7 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Request {
-    #[prost(oneof="request::RequestType", tags="1, 2, 3, 4, 5, 6, 7, 8")]
+    #[prost(oneof="request::RequestType", tags="1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12")]
     pub request_type: ::core::option::Option<request::RequestType>,
 }
 /// Nested message and enum types in `Request`.
@@ -26,12 +26,20 @@ pub mod request {
         SetActivePhysicalLayout(u32),
         #[prost(message, tag="8")]
         MoveLayer(super::MoveLayerRequest),
+        #[prost(message, tag="9")]
+        AddLayer(super::AddLayerRequest),
+        #[prost(message, tag="10")]
+        RemoveLayer(super::RemoveLayerRequest),
+        #[prost(message, tag="11")]
+        RestoreLayer(super::RestoreLayerRequest),
+        #[prost(message, tag="12")]
+        SetLayerProps(super::SetLayerPropsRequest),
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Response {
-    #[prost(oneof="response::ResponseType", tags="1, 2, 3, 4, 5, 6, 7, 8")]
+    #[prost(oneof="response::ResponseType", tags="1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12")]
     pub response_type: ::core::option::Option<response::ResponseType>,
 }
 /// Nested message and enum types in `Response`.
@@ -55,6 +63,14 @@ pub mod response {
         SetActivePhysicalLayout(super::SetActivePhysicalLayoutResponse),
         #[prost(message, tag="8")]
         MoveLayer(super::MoveLayerResponse),
+        #[prost(message, tag="9")]
+        AddLayer(super::AddLayerResponse),
+        #[prost(message, tag="10")]
+        RemoveLayer(super::RemoveLayerResponse),
+        #[prost(message, tag="11")]
+        RestoreLayer(super::RestoreLayerResponse),
+        #[prost(enumeration="super::SetLayerPropsResponse", tag="12")]
+        SetLayerProps(i32),
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -108,6 +124,69 @@ pub mod move_layer_response {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddLayerResponse {
+    #[prost(oneof="add_layer_response::Result", tags="1, 2")]
+    pub result: ::core::option::Option<add_layer_response::Result>,
+}
+/// Nested message and enum types in `AddLayerResponse`.
+pub mod add_layer_response {
+    #[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Result {
+        #[prost(message, tag="1")]
+        Ok(super::AddLayerResponseDetails),
+        #[prost(enumeration="super::AddLayerErrorCode", tag="2")]
+        Err(i32),
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddLayerResponseDetails {
+    #[prost(uint32, tag="1")]
+    pub index: u32,
+    #[prost(message, optional, tag="2")]
+    pub layer: ::core::option::Option<Layer>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveLayerResponse {
+    #[prost(oneof="remove_layer_response::Result", tags="1, 2")]
+    pub result: ::core::option::Option<remove_layer_response::Result>,
+}
+/// Nested message and enum types in `RemoveLayerResponse`.
+pub mod remove_layer_response {
+    #[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Result {
+        #[prost(message, tag="1")]
+        Ok(super::RemoveLayerOk),
+        #[prost(enumeration="super::RemoveLayerErrorCode", tag="2")]
+        Err(i32),
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveLayerOk {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RestoreLayerResponse {
+    #[prost(oneof="restore_layer_response::Result", tags="1, 2")]
+    pub result: ::core::option::Option<restore_layer_response::Result>,
+}
+/// Nested message and enum types in `RestoreLayerResponse`.
+pub mod restore_layer_response {
+    #[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Result {
+        #[prost(message, tag="1")]
+        Ok(super::Layer),
+        #[prost(enumeration="super::RestoreLayerErrorCode", tag="2")]
+        Err(i32),
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct SetLayerBindingRequest {
     #[prost(uint32, tag="1")]
     pub layer_id: u32,
@@ -126,9 +205,37 @@ pub struct MoveLayerRequest {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AddLayerRequest {
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RemoveLayerRequest {
+    #[prost(uint32, tag="1")]
+    pub layer_index: u32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RestoreLayerRequest {
+    #[prost(uint32, tag="1")]
+    pub layer_id: u32,
+    #[prost(uint32, tag="2")]
+    pub at_index: u32,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SetLayerPropsRequest {
+    #[prost(uint32, tag="1")]
+    pub layer_id: u32,
+    #[prost(string, tag="2")]
+    pub name: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Keymap {
     #[prost(message, repeated, tag="1")]
     pub layers: ::prost::alloc::vec::Vec<Layer>,
+    #[prost(uint32, tag="2")]
+    pub available_layers: u32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -187,10 +294,10 @@ pub struct KeyPhysicalAttrs {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum SetLayerBindingResponse {
-    Success = 0,
-    InvalidLocation = 1,
-    InvalidBehavior = 2,
-    InvalidParameters = 3,
+    SetLayerBindingRespOk = 0,
+    SetLayerBindingRespInvalidLocation = 1,
+    SetLayerBindingRespInvalidBehavior = 2,
+    SetLayerBindingRespInvalidParameters = 3,
 }
 impl SetLayerBindingResponse {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -199,19 +306,19 @@ impl SetLayerBindingResponse {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SetLayerBindingResponse::Success => "SUCCESS",
-            SetLayerBindingResponse::InvalidLocation => "INVALID_LOCATION",
-            SetLayerBindingResponse::InvalidBehavior => "INVALID_BEHAVIOR",
-            SetLayerBindingResponse::InvalidParameters => "INVALID_PARAMETERS",
+            SetLayerBindingResponse::SetLayerBindingRespOk => "SET_LAYER_BINDING_RESP_OK",
+            SetLayerBindingResponse::SetLayerBindingRespInvalidLocation => "SET_LAYER_BINDING_RESP_INVALID_LOCATION",
+            SetLayerBindingResponse::SetLayerBindingRespInvalidBehavior => "SET_LAYER_BINDING_RESP_INVALID_BEHAVIOR",
+            SetLayerBindingResponse::SetLayerBindingRespInvalidParameters => "SET_LAYER_BINDING_RESP_INVALID_PARAMETERS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
     pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
         match value {
-            "SUCCESS" => Some(Self::Success),
-            "INVALID_LOCATION" => Some(Self::InvalidLocation),
-            "INVALID_BEHAVIOR" => Some(Self::InvalidBehavior),
-            "INVALID_PARAMETERS" => Some(Self::InvalidParameters),
+            "SET_LAYER_BINDING_RESP_OK" => Some(Self::SetLayerBindingRespOk),
+            "SET_LAYER_BINDING_RESP_INVALID_LOCATION" => Some(Self::SetLayerBindingRespInvalidLocation),
+            "SET_LAYER_BINDING_RESP_INVALID_BEHAVIOR" => Some(Self::SetLayerBindingRespInvalidBehavior),
+            "SET_LAYER_BINDING_RESP_INVALID_PARAMETERS" => Some(Self::SetLayerBindingRespInvalidParameters),
             _ => None,
         }
     }
@@ -219,7 +326,7 @@ impl SetLayerBindingResponse {
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
 pub enum MoveLayerErrorCode {
-    MoveLayerErrSuccess = 0,
+    MoveLayerErrOk = 0,
     MoveLayerErrGeneric = 1,
     MoveLayerErrInvalidLayer = 2,
     MoveLayerErrInvalidDestination = 3,
@@ -231,7 +338,7 @@ impl MoveLayerErrorCode {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            MoveLayerErrorCode::MoveLayerErrSuccess => "MOVE_LAYER_ERR_SUCCESS",
+            MoveLayerErrorCode::MoveLayerErrOk => "MOVE_LAYER_ERR_OK",
             MoveLayerErrorCode::MoveLayerErrGeneric => "MOVE_LAYER_ERR_GENERIC",
             MoveLayerErrorCode::MoveLayerErrInvalidLayer => "MOVE_LAYER_ERR_INVALID_LAYER",
             MoveLayerErrorCode::MoveLayerErrInvalidDestination => "MOVE_LAYER_ERR_INVALID_DESTINATION",
@@ -240,7 +347,7 @@ impl MoveLayerErrorCode {
     /// Creates an enum from field names used in the ProtoBuf definition.
     pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
         match value {
-            "MOVE_LAYER_ERR_SUCCESS" => Some(Self::MoveLayerErrSuccess),
+            "MOVE_LAYER_ERR_OK" => Some(Self::MoveLayerErrOk),
             "MOVE_LAYER_ERR_GENERIC" => Some(Self::MoveLayerErrGeneric),
             "MOVE_LAYER_ERR_INVALID_LAYER" => Some(Self::MoveLayerErrInvalidLayer),
             "MOVE_LAYER_ERR_INVALID_DESTINATION" => Some(Self::MoveLayerErrInvalidDestination),
@@ -250,9 +357,129 @@ impl MoveLayerErrorCode {
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]
+pub enum AddLayerErrorCode {
+    AddLayerErrOk = 0,
+    AddLayerErrGeneric = 1,
+    AddLayerErrNoSpace = 2,
+}
+impl AddLayerErrorCode {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            AddLayerErrorCode::AddLayerErrOk => "ADD_LAYER_ERR_OK",
+            AddLayerErrorCode::AddLayerErrGeneric => "ADD_LAYER_ERR_GENERIC",
+            AddLayerErrorCode::AddLayerErrNoSpace => "ADD_LAYER_ERR_NO_SPACE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "ADD_LAYER_ERR_OK" => Some(Self::AddLayerErrOk),
+            "ADD_LAYER_ERR_GENERIC" => Some(Self::AddLayerErrGeneric),
+            "ADD_LAYER_ERR_NO_SPACE" => Some(Self::AddLayerErrNoSpace),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum RemoveLayerErrorCode {
+    RemoveLayerErrOk = 0,
+    RemoveLayerErrGeneric = 1,
+    RemoveLayerErrInvalidIndex = 2,
+}
+impl RemoveLayerErrorCode {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            RemoveLayerErrorCode::RemoveLayerErrOk => "REMOVE_LAYER_ERR_OK",
+            RemoveLayerErrorCode::RemoveLayerErrGeneric => "REMOVE_LAYER_ERR_GENERIC",
+            RemoveLayerErrorCode::RemoveLayerErrInvalidIndex => "REMOVE_LAYER_ERR_INVALID_INDEX",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "REMOVE_LAYER_ERR_OK" => Some(Self::RemoveLayerErrOk),
+            "REMOVE_LAYER_ERR_GENERIC" => Some(Self::RemoveLayerErrGeneric),
+            "REMOVE_LAYER_ERR_INVALID_INDEX" => Some(Self::RemoveLayerErrInvalidIndex),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum RestoreLayerErrorCode {
+    RestoreLayerErrOk = 0,
+    RestoreLayerErrGeneric = 1,
+    RestoreLayerErrInvalidId = 2,
+    RestoreLayerErrInvalidIndex = 3,
+}
+impl RestoreLayerErrorCode {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            RestoreLayerErrorCode::RestoreLayerErrOk => "RESTORE_LAYER_ERR_OK",
+            RestoreLayerErrorCode::RestoreLayerErrGeneric => "RESTORE_LAYER_ERR_GENERIC",
+            RestoreLayerErrorCode::RestoreLayerErrInvalidId => "RESTORE_LAYER_ERR_INVALID_ID",
+            RestoreLayerErrorCode::RestoreLayerErrInvalidIndex => "RESTORE_LAYER_ERR_INVALID_INDEX",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "RESTORE_LAYER_ERR_OK" => Some(Self::RestoreLayerErrOk),
+            "RESTORE_LAYER_ERR_GENERIC" => Some(Self::RestoreLayerErrGeneric),
+            "RESTORE_LAYER_ERR_INVALID_ID" => Some(Self::RestoreLayerErrInvalidId),
+            "RESTORE_LAYER_ERR_INVALID_INDEX" => Some(Self::RestoreLayerErrInvalidIndex),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum SetLayerPropsResponse {
+    SetLayerPropsRespOk = 0,
+    SetLayerPropsRespErrGeneric = 1,
+    SetLayerPropsRespErrInvalidId = 2,
+}
+impl SetLayerPropsResponse {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            SetLayerPropsResponse::SetLayerPropsRespOk => "SET_LAYER_PROPS_RESP_OK",
+            SetLayerPropsResponse::SetLayerPropsRespErrGeneric => "SET_LAYER_PROPS_RESP_ERR_GENERIC",
+            SetLayerPropsResponse::SetLayerPropsRespErrInvalidId => "SET_LAYER_PROPS_RESP_ERR_INVALID_ID",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "SET_LAYER_PROPS_RESP_OK" => Some(Self::SetLayerPropsRespOk),
+            "SET_LAYER_PROPS_RESP_ERR_GENERIC" => Some(Self::SetLayerPropsRespErrGeneric),
+            "SET_LAYER_PROPS_RESP_ERR_INVALID_ID" => Some(Self::SetLayerPropsRespErrInvalidId),
+            _ => None,
+        }
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
 pub enum SetActivePhysicalLayoutErrorCode {
-    Generic = 0,
-    InvalidLayoutIndex = 1,
+    SetActivePhysicalLayoutErrOk = 0,
+    SetActivePhysicalLayoutErrGeneric = 1,
+    SetActivePhysicalLayoutErrInvalidLayoutIndex = 2,
 }
 impl SetActivePhysicalLayoutErrorCode {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -261,15 +488,17 @@ impl SetActivePhysicalLayoutErrorCode {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SetActivePhysicalLayoutErrorCode::Generic => "GENERIC",
-            SetActivePhysicalLayoutErrorCode::InvalidLayoutIndex => "INVALID_LAYOUT_INDEX",
+            SetActivePhysicalLayoutErrorCode::SetActivePhysicalLayoutErrOk => "SET_ACTIVE_PHYSICAL_LAYOUT_ERR_OK",
+            SetActivePhysicalLayoutErrorCode::SetActivePhysicalLayoutErrGeneric => "SET_ACTIVE_PHYSICAL_LAYOUT_ERR_GENERIC",
+            SetActivePhysicalLayoutErrorCode::SetActivePhysicalLayoutErrInvalidLayoutIndex => "SET_ACTIVE_PHYSICAL_LAYOUT_ERR_INVALID_LAYOUT_INDEX",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
     pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
         match value {
-            "GENERIC" => Some(Self::Generic),
-            "INVALID_LAYOUT_INDEX" => Some(Self::InvalidLayoutIndex),
+            "SET_ACTIVE_PHYSICAL_LAYOUT_ERR_OK" => Some(Self::SetActivePhysicalLayoutErrOk),
+            "SET_ACTIVE_PHYSICAL_LAYOUT_ERR_GENERIC" => Some(Self::SetActivePhysicalLayoutErrGeneric),
+            "SET_ACTIVE_PHYSICAL_LAYOUT_ERR_INVALID_LAYOUT_INDEX" => Some(Self::SetActivePhysicalLayoutErrInvalidLayoutIndex),
             _ => None,
         }
     }
