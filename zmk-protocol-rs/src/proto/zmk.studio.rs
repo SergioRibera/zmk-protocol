@@ -13,11 +13,11 @@ pub mod request {
 #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Subsystem {
         #[prost(message, tag="3")]
-        Core(super::core::Request),
+        Core(super::super::core::Request),
         #[prost(message, tag="4")]
-        Behaviors(super::behaviors::Request),
+        Behaviors(super::super::behaviors::Request),
         #[prost(message, tag="5")]
-        Keymap(super::keymap::Request),
+        Keymap(super::super::keymap::Request),
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -51,13 +51,13 @@ pub mod request_response {
 #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Subsystem {
         #[prost(message, tag="2")]
-        Meta(super::meta::Response),
+        Meta(super::super::meta::Response),
         #[prost(message, tag="3")]
-        Core(super::core::Response),
+        Core(super::super::core::Response),
         #[prost(message, tag="4")]
-        Behaviors(super::behaviors::Response),
+        Behaviors(super::super::behaviors::Response),
         #[prost(message, tag="5")]
-        Keymap(super::keymap::Response),
+        Keymap(super::super::keymap::Response),
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -72,9 +72,9 @@ pub mod notification {
 #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Subsystem {
         #[prost(message, tag="2")]
-        Core(super::core::Notification),
+        Core(super::super::core::Notification),
         #[prost(message, tag="5")]
-        Keymap(super::keymap::Notification),
+        Keymap(super::super::keymap::Notification),
     }
 }
 // @@protoc_insertion_point(module)

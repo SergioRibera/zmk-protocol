@@ -1,8 +1,5 @@
 // @generated
-// @@protoc_insertion_point(attribute:zmk)
 pub mod zmk {
-    include!("zmk.rs");
-    // @@protoc_insertion_point(zmk)
     // @@protoc_insertion_point(attribute:zmk.behaviors)
     pub mod behaviors {
         include!("zmk.behaviors.rs");
@@ -22,5 +19,10 @@ pub mod zmk {
     pub mod meta {
         include!("zmk.meta.rs");
         // @@protoc_insertion_point(zmk.meta)
+    }
+    // @@protoc_insertion_point(attribute:zmk.studio)
+    pub mod studio {
+        include!("zmk.studio.rs");
+        // @@protoc_insertion_point(zmk.studio)
     }
 }

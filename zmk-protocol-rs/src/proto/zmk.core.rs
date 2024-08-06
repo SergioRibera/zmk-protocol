@@ -2,7 +2,7 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Request {
-    #[prost(oneof="request::RequestType", tags="1, 2, 3, 4")]
+    #[prost(oneof="request::RequestType", tags="1, 2, 3")]
     pub request_type: ::core::option::Option<request::RequestType>,
 }
 /// Nested message and enum types in `Request`.
@@ -15,8 +15,6 @@ pub mod request {
         #[prost(bool, tag="2")]
         GetLockState(bool),
         #[prost(bool, tag="3")]
-        RequestUnlock(bool),
-        #[prost(bool, tag="4")]
         Lock(bool),
     }
 }
@@ -64,8 +62,7 @@ pub mod notification {
 #[repr(i32)]
 pub enum LockState {
     ZmkStudioCoreLockStateLocked = 0,
-    ZmkStudioCoreLockStateUnlocking = 1,
-    ZmkStudioCoreLockStateUnlocked = 2,
+    ZmkStudioCoreLockStateUnlocked = 1,
 }
 impl LockState {
     /// String value of the enum field names used in the ProtoBuf definition.
@@ -75,7 +72,6 @@ impl LockState {
     pub fn as_str_name(&self) -> &'static str {
         match self {
             LockState::ZmkStudioCoreLockStateLocked => "ZMK_STUDIO_CORE_LOCK_STATE_LOCKED",
-            LockState::ZmkStudioCoreLockStateUnlocking => "ZMK_STUDIO_CORE_LOCK_STATE_UNLOCKING",
             LockState::ZmkStudioCoreLockStateUnlocked => "ZMK_STUDIO_CORE_LOCK_STATE_UNLOCKED",
         }
     }
@@ -83,7 +79,6 @@ impl LockState {
     pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
         match value {
             "ZMK_STUDIO_CORE_LOCK_STATE_LOCKED" => Some(Self::ZmkStudioCoreLockStateLocked),
-            "ZMK_STUDIO_CORE_LOCK_STATE_UNLOCKING" => Some(Self::ZmkStudioCoreLockStateUnlocking),
             "ZMK_STUDIO_CORE_LOCK_STATE_UNLOCKED" => Some(Self::ZmkStudioCoreLockStateUnlocked),
             _ => None,
         }
