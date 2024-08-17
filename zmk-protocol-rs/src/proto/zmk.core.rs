@@ -2,7 +2,7 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Request {
-    #[prost(oneof="request::RequestType", tags="1, 2, 3")]
+    #[prost(oneof="request::RequestType", tags="1, 2, 3, 4")]
     pub request_type: ::core::option::Option<request::RequestType>,
 }
 /// Nested message and enum types in `Request`.
@@ -16,12 +16,14 @@ pub mod request {
         GetLockState(bool),
         #[prost(bool, tag="3")]
         Lock(bool),
+        #[prost(bool, tag="4")]
+        ResetSettings(bool),
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Response {
-    #[prost(oneof="response::ResponseType", tags="1, 2")]
+    #[prost(oneof="response::ResponseType", tags="1, 2, 4")]
     pub response_type: ::core::option::Option<response::ResponseType>,
 }
 /// Nested message and enum types in `Response`.
@@ -33,6 +35,8 @@ pub mod response {
         GetDeviceInfo(super::GetDeviceInfoResponse),
         #[prost(enumeration="super::LockState", tag="2")]
         GetLockState(i32),
+        #[prost(bool, tag="4")]
+        ResetSettings(bool),
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
