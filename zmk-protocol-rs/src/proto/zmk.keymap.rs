@@ -53,8 +53,8 @@ pub mod response {
         SetLayerBinding(i32),
         #[prost(bool, tag="3")]
         CheckUnsavedChanges(bool),
-        #[prost(bool, tag="4")]
-        SaveChanges(bool),
+        #[prost(message, tag="4")]
+        SaveChanges(super::SaveChangesResponse),
         #[prost(bool, tag="5")]
         DiscardChanges(bool),
         #[prost(message, tag="6")]
@@ -86,6 +86,23 @@ pub mod notification {
     pub enum NotificationType {
         #[prost(bool, tag="1")]
         UnsavedChangesStatusChanged(bool),
+    }
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SaveChangesResponse {
+    #[prost(oneof="save_changes_response::Result", tags="1, 2")]
+    pub result: ::core::option::Option<save_changes_response::Result>,
+}
+/// Nested message and enum types in `SaveChangesResponse`.
+pub mod save_changes_response {
+    #[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Result {
+        #[prost(bool, tag="1")]
+        Ok(bool),
+        #[prost(enumeration="super::SaveChangesErrorCode", tag="2")]
+        Err(i32),
     }
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
@@ -236,6 +253,8 @@ pub struct Keymap {
     pub layers: ::prost::alloc::vec::Vec<Layer>,
     #[prost(uint32, tag="2")]
     pub available_layers: u32,
+    #[prost(uint32, tag="3")]
+    pub max_layer_name_length: u32,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -290,6 +309,38 @@ pub struct KeyPhysicalAttrs {
     pub rx: i32,
     #[prost(sint32, tag="7")]
     pub ry: i32,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum SaveChangesErrorCode {
+    SaveChangesErrOk = 0,
+    SaveChangesErrGeneric = 1,
+    SaveChangesErrNotSupported = 2,
+    SaveChangesErrNoSpace = 3,
+}
+impl SaveChangesErrorCode {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            SaveChangesErrorCode::SaveChangesErrOk => "SAVE_CHANGES_ERR_OK",
+            SaveChangesErrorCode::SaveChangesErrGeneric => "SAVE_CHANGES_ERR_GENERIC",
+            SaveChangesErrorCode::SaveChangesErrNotSupported => "SAVE_CHANGES_ERR_NOT_SUPPORTED",
+            SaveChangesErrorCode::SaveChangesErrNoSpace => "SAVE_CHANGES_ERR_NO_SPACE",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "SAVE_CHANGES_ERR_OK" => Some(Self::SaveChangesErrOk),
+            "SAVE_CHANGES_ERR_GENERIC" => Some(Self::SaveChangesErrGeneric),
+            "SAVE_CHANGES_ERR_NOT_SUPPORTED" => Some(Self::SaveChangesErrNotSupported),
+            "SAVE_CHANGES_ERR_NO_SPACE" => Some(Self::SaveChangesErrNoSpace),
+            _ => None,
+        }
+    }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
 #[repr(i32)]

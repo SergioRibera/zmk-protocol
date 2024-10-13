@@ -112,34 +112,4 @@ pub mod behavior_parameter_value_description {
         LayerId(super::BehaviorParameterLayerId),
     }
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum BehaviorBindingParameterStandardDomain {
-    Nil = 0,
-    HidUsage = 1,
-    /// HSV_VALUE = 3;
-    LayerId = 2,
-}
-impl BehaviorBindingParameterStandardDomain {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            BehaviorBindingParameterStandardDomain::Nil => "NIL",
-            BehaviorBindingParameterStandardDomain::HidUsage => "HID_USAGE",
-            BehaviorBindingParameterStandardDomain::LayerId => "LAYER_ID",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "NIL" => Some(Self::Nil),
-            "HID_USAGE" => Some(Self::HidUsage),
-            "LAYER_ID" => Some(Self::LayerId),
-            _ => None,
-        }
-    }
-}
 // @@protoc_insertion_point(module)
